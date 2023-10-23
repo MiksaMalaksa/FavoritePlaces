@@ -13,6 +13,18 @@ class PlacesList extends StatelessWidget {
         itemCount: places.length,
         itemBuilder: (context, index) {
           return ListTile(
+            leading: CircleAvatar(
+              radius: 22,
+              backgroundImage: FileImage(places[index].image),
+            ),
+            subtitle: Text(
+              "Tap for more info",
+              style: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withOpacity(0.6)),
+            ),
             title: Text(
               places[index].title,
               style: Theme.of(context)

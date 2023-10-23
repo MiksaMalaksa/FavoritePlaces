@@ -21,7 +21,10 @@ class PlacesScreen extends ConsumerWidget {
             "No places",
             style: TextStyle(color: Colors.white),
           ))
-        : PlacesList(places: userPlaces);
+        : Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: PlacesList(places: userPlaces),
+          );
 
     return Scaffold(
       appBar: AppBar(

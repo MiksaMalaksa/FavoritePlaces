@@ -12,7 +12,14 @@ class PlaceDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("${place.title} details"),
       ),
-      body: const Center(child: Text("Nothing at the moment ")),
+      body: Stack(children: [
+        Image.file(
+          place.image,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: 600,
+        )
+      ]),
     );
   }
 }

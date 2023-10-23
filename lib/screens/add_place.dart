@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:favorite_places/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:favorite_places/providers/user_places.dart';
@@ -12,6 +14,7 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 
 class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   late TextEditingController _controller;
+  File? selectedImage;
 
   @override
   void initState() {
@@ -37,9 +40,16 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
         _controller.clear();
       });
       return;
+    } else if (selectedImage == null) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("You must add a picture"),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.white));
+      return;
     }
 
-    ref.read(userPlacesProvider.notifier).addPlace(text);
+    ref.read(userPlacesProvider.notifier).addPlace(text, selectedImage!);
     Navigator.of(context).pop();
   }
 
@@ -61,7 +71,11 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
           const SizedBox(
             height: 16,
           ),
-          const ImageInput(),
+          ImageInput(
+            onSelectedImage: (image) {
+              selectedImage = image;
+            },
+          ),
           const SizedBox(
             height: 16,
           ),
